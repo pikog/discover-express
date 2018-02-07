@@ -1,7 +1,14 @@
+//Import package
 const express = require('express')
 
+//Express init
 const app = express()
+const port = 8080;
 
+//Access to public file
+app.use(express.static(__dirname + '/public'));
+
+//Routes
 app.get('/', (req, res) =>
 {
     res.send({
@@ -24,4 +31,8 @@ app.get('/bad', (req, res) =>
     )
 })
 
-app.listen(8080)
+//Launch on port
+app.listen(port, () =>
+{
+    console.log(`Server started on ${port}`)
+})
