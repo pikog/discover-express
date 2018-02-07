@@ -6,7 +6,7 @@ const app = express()
 const port = 8080;
 
 //Access to public file
-app.use(express.static(__dirname + '/public'));
+app.use('/static', express.static(__dirname + '/public'));
 
 //Routes
 app.get('/', (req, res) =>
