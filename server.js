@@ -1,9 +1,15 @@
-//Import package
+//Import packages
 const express = require('express')
+const hbs = require('hbs')
 
 //Express init
 const app = express()
-const port = 8080;
+
+//Port to use
+const port = 8080
+
+//Setting template engine
+app.set('view engine', 'hbs')
 
 //Access to public file
 app.use('/static', express.static(__dirname + '/public'));
@@ -11,15 +17,21 @@ app.use('/static', express.static(__dirname + '/public'));
 //Routes
 app.get('/', (req, res) =>
 {
-    res.send({
-        foo:'bar',
-        id: 5
-    })
+    res.render('home.hbs', 
+        {
+            title: 'Home page !',
+            year: new Date().getFullYear()
+        }
+    )
 })
 
 app.get('/test', (req, res) =>
 {
-    res.send('<h1>Test page</h1>')
+    res.render('test.hbs', 
+        {
+            date: new Date().toDateString()
+        }
+    )
 })
 
 app.get('/bad', (req, res) =>
