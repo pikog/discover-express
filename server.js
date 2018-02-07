@@ -9,7 +9,21 @@ const app = express()
 const port = 8080
 
 //Setting template engine
+hbs.registerPartials(__dirname + '/views/partials')
 app.set('view engine', 'hbs')
+
+//Set new function to HBS
+//Return current year
+hbs.registerHelper('current_year', () =>
+{
+    return new Date().getFullYear()
+})
+
+//Return string in lowercase
+hbs.registerHelper('lowercase', (text) =>
+{
+    return text.toLowerCase()
+})
 
 //Access to public file
 app.use('/static', express.static(__dirname + '/public'));
@@ -19,8 +33,7 @@ app.get('/', (req, res) =>
 {
     res.render('home.hbs', 
         {
-            title: 'Home page !',
-            year: new Date().getFullYear()
+            title: 'Home',
         }
     )
 })
@@ -29,6 +42,7 @@ app.get('/test', (req, res) =>
 {
     res.render('test.hbs', 
         {
+            title: 'Test',
             date: new Date().toDateString()
         }
     )
