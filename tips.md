@@ -10,6 +10,7 @@ This is just a quick memo for me
         - [Partials](#partials)
         - [Register helper](#register-helper)
     - [Nodemon config file](#nodemon-config-file)
+    - [Middlewares](#middlewares)
 
 ## Prefix static files
 
@@ -59,4 +60,46 @@ We can create `nodemon.json` to configure nodemon like watch specific files.
     //Watch .js and .hbs files
     "ext": "js hbs"
 }
+```
+
+## Middlewares
+
+This a function which launch before routes. We can use middleware to get info on request, change the response or stop/enable the continuation of the process. The order of middleware is important.
+
+The syntax is :
+
+```javascript
+app.use((req, res, next) =>
+{
+    next() //call the next middleware (continue the process)
+})
+```
+
+There are examples of middlewares : 
+
+```javascript
+//Log all server call in a file
+app.use((req, res, next) =>
+{
+    const text = `${new Date().toString()} : ${req.method} ${req.originalUrl}`
+    console.log(text)
+    fs.appendFile('server.log', `${text}\n`, (error) =>
+    {
+        if(error)
+        {
+            console.log(error)
+        }
+    })
+    next()
+})
+
+//Show a maitenance page instead of normal response
+app.use((req, res, next) =>
+{
+    res.render('maintenance.hbs')
+    //next() is not call, so the processus doesn't continue and just show maitenance page
+})
+
+//Access to public file
+app.use('/static', express.static(__dirname + '/public'));
 ```
