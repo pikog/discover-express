@@ -57,10 +57,11 @@ We can create `nodemon.json` to configure nodemon like watch specific files.
 
 ```JSON
 {
-    //Watch .js and .hbs files
     "ext": "js hbs"
 }
 ```
+
+*  *ext* : Which file extension is watched
 
 ## Middlewares
 
