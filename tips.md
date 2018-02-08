@@ -61,7 +61,7 @@ We can create `nodemon.json` to configure nodemon like watch specific files.
 }
 ```
 
-*  *ext* : Which file extension is watched
+*  *ext* : Which file extensions are watched
 
 ## Middlewares
 
