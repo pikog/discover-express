@@ -98,7 +98,7 @@ app.use((req, res, next) =>
 app.use((req, res, next) =>
 {
     res.render('maintenance.hbs')
-    //next() is not call, so the processus doesn't continue and just show maitenance page
+    //next() isn't call, so the processus doesn't continue and just show maitenance page
 })
 
 //Access to public file
