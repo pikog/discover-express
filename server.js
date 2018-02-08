@@ -1,12 +1,16 @@
 //Import packages
 const express = require('express')
 const hbs = require('hbs')
+const fs = require('fs')
 
 //Express init
 const app = express()
 
 //Port to use
 const port = 8080
+
+//Maitenance
+const maitenance = false
 
 //Setting template engine
 hbs.registerPartials(__dirname + '/views/partials')
@@ -24,6 +28,30 @@ hbs.registerHelper('lowercase', (text) =>
 {
     return text.toLowerCase()
 })
+
+//Log function
+app.use((req, res, next) =>
+{
+    const text = `${new Date().toString()} : ${req.method} ${req.originalUrl}`
+    console.log(text)
+    fs.appendFile('server.log', `${text}\n`, (error) =>
+    {
+        if(error)
+        {
+            console.log(error)
+        }
+    })
+    next()
+})
+
+//Maitenance function
+if(maitenance)
+{
+    app.use((req, res, next) =>
+    {
+        res.render('maintenance.hbs')
+    })
+}
 
 //Access to public file
 app.use('/static', express.static(__dirname + '/public'));
