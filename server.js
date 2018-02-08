@@ -85,6 +85,11 @@ app.get('/bad', (req, res) =>
     )
 })
 
+app.get('/image', (req, res) =>
+{
+    res.sendFile(__dirname + '/avatar.jpg')
+})
+
 //Launch on port
 app.listen(port, () =>
 {
